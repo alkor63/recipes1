@@ -21,9 +21,7 @@ public class RecipeServiceImpl implements RecipeService {
         return recipes;
     }
 
-    public Long getRecipeId() {
-        return recId;
-    }
+ //   public Long getRecipeId() {        return recId;    }
     //    public Map<Long, Recipe> getRecipes() { return recipes;  }
 
     @Override

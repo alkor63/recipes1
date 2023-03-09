@@ -278,3 +278,75 @@ GET http://localhost:8080/recipe/1
 DELETE http://localhost:8080/recipe
 ###
 GET http://localhost:8080/recipe/1
+###
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+    {
+      "name": "Творог",
+      "quantity": 250,
+      "measureUnit": "г"
+    }
+###
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+{
+      "name": "Куриное яйцо",
+      "quantity": 3,
+      "measureUnit": "штуки"
+    }
+###
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+    {
+      "name": "Пшеничная мука",
+      "quantity": 8,
+      "measureUnit": "столовых ложек"
+    }
+###
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+{
+      "name": "Сахар и соль",
+      "quantity": 0,
+      "measureUnit": "по вкусу"
+    }
+###
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+    {
+      "name": "Сода",
+      "quantity": 0.5,
+      "measureUnit": "чайные ложки"
+    }
+###
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+    {
+      "name": "Оливковое масло",
+      "quantity": 0,
+      "measureUnit": "по вкусу"
+    }
+###
+POST http://localhost:8080/ingredient
+Content-Type: application/json
+
+    {
+      "name": "Сахарная пудра с ванилью",
+      "quantity": 0,
+      "measureUnit": "по вкусу"
+    }
+
+###
+GET http://localhost:8080/ingredient/2
+###
+GET http://localhost:8080/ingredient
+###
+DELETE http://localhost:8080/ingredient/3
+###
+GET http://localhost:8080/ingredient/4

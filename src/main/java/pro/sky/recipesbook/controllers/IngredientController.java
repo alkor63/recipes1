@@ -30,4 +30,40 @@ public class IngredientController {
         }
         else return ResponseEntity.ok(ingredient);
     }
+
+    @PutMapping("/{ingredientId}")
+    public ResponseEntity<Ingredient> editIngredient(@PathVariable int ingredientId, @RequestBody Ingredient ingredient) {
+        Ingredient newIngredient = ingredientService.editIngredient(ingredientId, ingredient);
+        if (newIngredient == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(newIngredient);
+    }
+
+    @DeleteMapping("/{ingredientId}")
+    public ResponseEntity<Void> deleteIngredient(@PathVariable int ingredientId) {
+        if (ingredientService.deleteIngredient(ingredientId)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteAllIngredient() {
+        ingredientService.deleteAllIngredients();
+        return ResponseEntity.ok().build();
+    }
+    @GetMapping
+    public ResponseEntity<Ingredient> getAllIngredients() {
+        int j=0;
+        for (int i = 1; i <= ingredientService.getIngId(); i++) {
+            Ingredient recipe = ingredientService.getIngredient(i);
+            if (recipe != null) j++;
+        }
+        if (j >0) {
+            System.out.println("В нашем рецепте "+j+" ингредиентов");
+            return ResponseEntity.ok().build();}
+        return ResponseEntity.notFound().build();
+    }
+
 }
