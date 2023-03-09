@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 import pro.sky.recipesbook.model.Ingredient;
 import pro.sky.recipesbook.services.IngredientService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,6 +27,10 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     public Ingredient getIngredient(int ingredientId) {
         return ingredients.get(ingredientId);
+    }
+    @Override
+    public List<Ingredient> getAllIngredients() {
+        return new ArrayList<>(ingredients.values());
     }
 
     @Override

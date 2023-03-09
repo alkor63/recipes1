@@ -6,6 +6,8 @@ import pro.sky.recipesbook.model.Ingredient;
 import pro.sky.recipesbook.model.Recipe;
 import pro.sky.recipesbook.services.IngredientService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/ingredient")
 
@@ -16,6 +18,7 @@ public class IngredientController {
     public IngredientController(IngredientService ingredientService) {
         this.ingredientService = ingredientService;
     }
+
     @PostMapping
     public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
         Ingredient newIngredient = ingredientService.addIngredient(ingredient);
@@ -27,8 +30,7 @@ public class IngredientController {
         Ingredient ingredient = ingredientService.getIngredient(ingredientId);
         if (ingredient == null) {
             return ResponseEntity.notFound().build();
-        }
-        else return ResponseEntity.ok(ingredient);
+        } else return ResponseEntity.ok(ingredient);
     }
 
     @PutMapping("/{ingredientId}")
@@ -53,16 +55,13 @@ public class IngredientController {
         ingredientService.deleteAllIngredients();
         return ResponseEntity.ok().build();
     }
+
     @GetMapping
-    public ResponseEntity<Ingredient> getAllIngredients() {
-        int j=0;
-        for (int i = 1; i <= ingredientService.getIngId(); i++) {
-            Ingredient recipe = ingredientService.getIngredient(i);
-            if (recipe != null) j++;
+    public ResponseEntity<List<Ingredient>> getAllIngredients() {
+        List<Ingredient> allIngredients = ingredientService.getAllIngredients();
+        if (allIngredients.size() > 0) {
+            return ResponseEntity.ok(allIngredients);
         }
-        if (j >0) {
-            System.out.println("В нашем рецепте "+j+" ингредиентов");
-            return ResponseEntity.ok().build();}
         return ResponseEntity.notFound().build();
     }
 

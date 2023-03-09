@@ -2,10 +2,12 @@ package pro.sky.recipesbook.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pro.sky.recipesbook.model.Ingredient;
 import pro.sky.recipesbook.model.Recipe;
 import pro.sky.recipesbook.services.Impl.RecipeServiceImpl;
 import pro.sky.recipesbook.services.RecipeService;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -55,17 +57,13 @@ public class RecipeController {
         return ResponseEntity.ok().build();
     }
     @GetMapping
-    public ResponseEntity<Recipe> getAllRecipes() {
-        int j=0;
-        for (long i = 1L; i <= recipeService.getRecId(); i++) {
-            Recipe recipe = recipeService.getRecipe(i);
-            if (recipe != null) j++;
+    public ResponseEntity<List<Recipe>> getAllRecipes() {
+        List<Recipe> allRecipes = recipeService.getAllRecipes();
+        if (allRecipes.size() > 0) {
+            return ResponseEntity.ok(allRecipes);
         }
-        if (j >0) {
-            System.out.println("В нашей книге "+j+" рецептов");
-            return ResponseEntity.ok().build();}
         return ResponseEntity.notFound().build();
-        }
+    }
 
 
 }
