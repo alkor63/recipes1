@@ -1,5 +1,6 @@
 package pro.sky.recipesbook.services.Impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.recipesbook.model.Ingredient;
 import pro.sky.recipesbook.services.IngredientService;
@@ -20,6 +21,8 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient addIngredient(Ingredient ingredient) {
+        boolean allBlank = StringUtils.isAllBlank((CharSequence) ingredient);
+        if (allBlank) return null;
         ingredients.putIfAbsent(ingId++, ingredient);
         return ingredient;
     }

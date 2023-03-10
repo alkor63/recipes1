@@ -1,5 +1,6 @@
 package pro.sky.recipesbook.services.Impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.recipesbook.model.Recipe;
 import pro.sky.recipesbook.services.RecipeService;
@@ -13,7 +14,8 @@ import java.util.Map;
 public class RecipeServiceImpl implements RecipeService {
     private Map<Long, Recipe> recipes = new HashMap<>();
     private Long recId = 1L;
-@Override
+
+    @Override
     public Long getRecId() {
         return recId;
     }
@@ -23,14 +25,11 @@ public class RecipeServiceImpl implements RecipeService {
         return recipes;
     }
 
- //   public Long getRecipeId() {        return recId;    }
-    //    public Map<Long, Recipe> getRecipes() { return recipes;  }
-
     @Override
     public Recipe addRecipe(Recipe recipe) {
-        if (!recipes.containsValue(recipe)){
-        recipes.put(recId++, recipe);}
-        else System.out.println("Рецепт "+recipe.getName()+" уже есть в этой книге");
+        if (!recipes.containsValue(recipe)) {
+            recipes.put(recId++, recipe);
+        } else System.out.println("Рецепт " + recipe.getName() + " уже есть в этой книге");
         return recipe;
     }
 
@@ -38,10 +37,12 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe getRecipe(Long recipeId) {
         return recipes.get(recipeId);
     }
+
     @Override
     public List<Recipe> getAllRecipes() {
         return new ArrayList<>(recipes.values());
     }
+
     @Override
     public Recipe editRecipe(Long recipeId, Recipe recipe) {
         if (recipes.containsKey(recipeId)) {
@@ -50,8 +51,9 @@ public class RecipeServiceImpl implements RecipeService {
         }
         return null;
     }
+
     @Override
-    public void deleteAllRecipes(){
+    public void deleteAllRecipes() {
         recipes.clear();
     }
 

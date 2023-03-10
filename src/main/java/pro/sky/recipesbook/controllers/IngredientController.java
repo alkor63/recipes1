@@ -1,5 +1,7 @@
 package pro.sky.recipesbook.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.recipesbook.model.Ingredient;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ingredient")
+@Tag(name = "Игредиенты для рецептов", description = "CRUD-операции с ингредиентами")
 
 public class IngredientController {
 
@@ -20,12 +23,14 @@ public class IngredientController {
     }
 
     @PostMapping
+    @Operation(summary = "Добавить ингредиент", description = "нужно заполнить все поля ингредиента в Body")
     public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient) {
         Ingredient newIngredient = ingredientService.addIngredient(ingredient);
         return ResponseEntity.ok(newIngredient);
     }
 
     @GetMapping("/{ingredientId}")
+    @Operation(summary = "Показать ингредиент", description = "нужно указать id ингредиента")
     public ResponseEntity<Ingredient> getIngredient(@PathVariable int ingredientId) {
         Ingredient ingredient = ingredientService.getIngredient(ingredientId);
         if (ingredient == null) {
@@ -34,6 +39,7 @@ public class IngredientController {
     }
 
     @PutMapping("/{ingredientId}")
+    @Operation(summary = "Отредактировать ингредиент", description = "нужно указать id и заполнить все поля ингредиента в Body")
     public ResponseEntity<Ingredient> editIngredient(@PathVariable int ingredientId, @RequestBody Ingredient ingredient) {
         Ingredient newIngredient = ingredientService.editIngredient(ingredientId, ingredient);
         if (newIngredient == null) {
@@ -43,6 +49,7 @@ public class IngredientController {
     }
 
     @DeleteMapping("/{ingredientId}")
+    @Operation(summary = "Удалить ингредиент", description = "нужно указать id ингредиента")
     public ResponseEntity<Void> deleteIngredient(@PathVariable int ingredientId) {
         if (ingredientService.deleteIngredient(ingredientId)) {
             return ResponseEntity.ok().build();
@@ -51,12 +58,14 @@ public class IngredientController {
     }
 
     @DeleteMapping
+    @Operation(summary = "Удалить все ингредиенты")
     public ResponseEntity<Void> deleteAllIngredient() {
         ingredientService.deleteAllIngredients();
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
+    @Operation(summary = "Показать список всех ингредиентов")
     public ResponseEntity<List<Ingredient>> getAllIngredients() {
         List<Ingredient> allIngredients = ingredientService.getAllIngredients();
         if (allIngredients.size() > 0) {
