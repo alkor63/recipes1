@@ -1,5 +1,7 @@
 package pro.sky.recipesbook.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.recipesbook.model.Ingredient;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/recipe")
+@Tag(name = "Книга рецептова", description = "CRUD-операции с рецептами")
 public class RecipeController {
     private RecipeService recipeService;
 
@@ -20,12 +23,14 @@ public class RecipeController {
     }
 
     @PostMapping
+    @Operation(summary = "Добавление рецепта в книгу", description = "нужно заполнить все поля рецепта в Body")
     public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe) {
         Recipe newRecipe = recipeService.addRecipe(recipe);
         return ResponseEntity.ok(newRecipe);
     }
 
     @GetMapping("/{recipeId}")
+    @Operation(summary = "Показать один рецепт", description = "нужно указать id рецепта")
     public ResponseEntity<Recipe> getRecipe(@PathVariable Long recipeId) {
         Recipe recipe = recipeService.getRecipe(recipeId);
         if (recipe == null) {
@@ -35,6 +40,7 @@ public class RecipeController {
     }
 
     @PutMapping("/{recipeId}")
+    @Operation(summary = "Отредактировать рецепт", description = "нужно указать id и заполнить все поля рецепта в Body")
     public ResponseEntity<Recipe> editRecipe(@PathVariable Long recipeId, @RequestBody Recipe recipe) {
         Recipe newRecipe = recipeService.editRecipe(recipeId, recipe);
         if (newRecipe == null) {
@@ -44,6 +50,7 @@ public class RecipeController {
     }
 
     @DeleteMapping("/{recipeId}")
+    @Operation(summary = "Удалить один рецепт", description = "нужно указать id рецепта")
     public ResponseEntity<Void> deleteRecipe(@PathVariable long recipeId) {
         if (recipeService.deleteRecipe(recipeId)) {
             return ResponseEntity.ok().build();
@@ -52,11 +59,13 @@ public class RecipeController {
     }
 
     @DeleteMapping
+    @Operation(summary = "Удалить все рецепты")
     public ResponseEntity<Void> deleteAllRecipes() {
         recipeService.deleteAllRecipes();
         return ResponseEntity.ok().build();
     }
     @GetMapping
+    @Operation(summary = "Показать все рецепты книги")
     public ResponseEntity<List<Recipe>> getAllRecipes() {
         List<Recipe> allRecipes = recipeService.getAllRecipes();
         if (allRecipes.size() > 0) {

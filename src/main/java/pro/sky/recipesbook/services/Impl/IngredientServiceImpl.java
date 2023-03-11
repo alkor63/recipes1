@@ -1,5 +1,6 @@
 package pro.sky.recipesbook.services.Impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.recipesbook.model.Ingredient;
 import pro.sky.recipesbook.services.IngredientService;
@@ -13,6 +14,7 @@ import java.util.Map;
 public class IngredientServiceImpl implements IngredientService {
     private Map<Integer, Ingredient> ingredients = new HashMap<>();
     private int ingId = 0;
+
     @Override
     public int getIngId() {
         return ingId;
@@ -20,6 +22,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Ingredient addIngredient(Ingredient ingredient) {
+
         ingredients.putIfAbsent(ingId++, ingredient);
         return ingredient;
     }
@@ -28,6 +31,7 @@ public class IngredientServiceImpl implements IngredientService {
     public Ingredient getIngredient(int ingredientId) {
         return ingredients.get(ingredientId);
     }
+
     @Override
     public List<Ingredient> getAllIngredients() {
         return new ArrayList<>(ingredients.values());
@@ -41,8 +45,9 @@ public class IngredientServiceImpl implements IngredientService {
         }
         return null;
     }
+
     @Override
-    public void deleteAllIngredients(){
+    public void deleteAllIngredients() {
         ingredients.clear();
     }
 
